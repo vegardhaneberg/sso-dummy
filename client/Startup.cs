@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace client
 {
@@ -46,6 +47,17 @@ namespace client
                     // options.Scope.Add("profile"); // default scope
                     options.Scope.Add("api1.read");
                     options.SaveTokens = true;
+
+                    //MFA
+                    options.Events = new OpenIdConnectEvents
+                    {
+                        OnRedirectToIdentityProvider = context =>
+                        {
+                            context.ProtocolMessage.SetParameter("acr_values", "mfa");
+            
+                            return Task.FromResult(0);
+                        }
+                    };
                 });
         }
 

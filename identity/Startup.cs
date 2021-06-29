@@ -168,6 +168,16 @@ namespace identity
                         Password = "password",
                         Claims = new List<Claim> {
                             new Claim(JwtClaimTypes.Email, "scott@scottbrady91.com"),
+                            new Claim(JwtClaimTypes.Role, "normalUser")
+                        }
+                    },
+
+                    new TestUser {
+                        SubjectId = "5BE86359-073C-434B-AD2D-A3934222DABE",
+                        Username = "andreas",
+                        Password = "94375982657",
+                        Claims = new List<Claim> {
+                            new Claim(JwtClaimTypes.Email, "andreas.dybvik.kaasen@bredvid.no"),
                             new Claim(JwtClaimTypes.Role, "admin")
                         }
                     }
