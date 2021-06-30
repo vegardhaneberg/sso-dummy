@@ -133,7 +133,15 @@ namespace IdentityServerHost.Quickstart.UI
                         DisplayName = user.Username
                     };
 
+                    
+                    //return RedirectToAction(nameof(TwoFactor), TwoFactor)
+
+                    // Gives the user a signed in cookie. Redirect before this!
                     await HttpContext.SignInAsync(isuser, props);
+                    
+                    return RedirectToAction("TwoFactor", "TwoFactor", new {ReturnUrl = model.ReturnUrl});
+                    //User.Identity
+                    //HttpContext.Resig
 
                     if (context != null)
                     {
@@ -229,6 +237,12 @@ namespace IdentityServerHost.Quickstart.UI
 
         [HttpGet]
         public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Vegard()
         {
             return View();
         }

@@ -1,0 +1,13 @@
+@using identity.Quickstart.UI
+@model FormModel;
+
+<h2>Two factor will be implemented here</h2>
+
+<form method="post">
+        <img src="@ViewBag.BarcodeImageUrl" /><br/>
+        Setup code: @ViewBag.SetupCode<br/>
+        Input security code: <input name="inputCode" asp-for="InputCode"/><br/>
+        <input type="submit" />
+        <input type="hidden" asp-for="ReturnUrl" />
+</form>
+
