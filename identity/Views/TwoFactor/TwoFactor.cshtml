@@ -1,0 +1,16 @@
+@model TwoFactorModel
+ 
+@using identity.Quickstart.UI;
+
+<h1>Enter code from authenticator app</h1>
+ 
+<br />
+
+<form method="post">
+    <img src="@ViewBag.BarcodeImageUrl" /><br/>
+    Setup code: @ViewBag.SetupCode<br/>
+    Input security code: <input name="inputCode" asp-for="InputCode" /><br/>
+    <input type="hidden" asp-for="ReturnUrl"/>
+    <input type="submit" />
+</form> 
+

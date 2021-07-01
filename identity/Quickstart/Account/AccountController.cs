@@ -127,13 +127,6 @@ namespace IdentityServerHost.Quickstart.UI
                         };
                     };
 
-                    //MFA
-                    var requiresMfa = context?.AcrValues.Count(t => t.Contains("mfa")) >= 1;
-                    if (requiresMfa)
-                    {
-                        
-                        return RedirectToAction(nameof(mfa));
-                    }
 
                     // issue authentication cookie with subject ID and username
                     var isuser = new IdentityServerUser(user.SubjectId)
@@ -141,7 +134,15 @@ namespace IdentityServerHost.Quickstart.UI
                         DisplayName = user.Username
                     };
 
+                    // Gets tokens and sets cookie, enables user to access resource
                     await HttpContext.SignInAsync(isuser, props);
+
+                    //MFA
+                    var requiresMfa = context?.AcrValues.Count(t => t.Contains("mfa")) >= 1;
+                    if (requiresMfa)
+                    {    
+                        return RedirectToAction("TwoFactor", "TwoFactor", new { ReturnUrl = model.ReturnUrl });
+                    }
 
                     if (context != null)
                     {
@@ -243,12 +244,6 @@ namespace IdentityServerHost.Quickstart.UI
 
         [HttpGet]
         public IActionResult mfa()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult TwoFactorAuthentication()
         {
             return View();
         }
